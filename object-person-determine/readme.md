@@ -1,10 +1,11 @@
-## Object-Person-Determine
----
+# object-person-determine
+
 A node that determines which of the detected objects most interacts with the user.
 
+<br>
 
-### input message properties
- Two types of messages can come in. It consists of one incoming message for logging and one message for simple detection.
+## Input message properties
+Two types of messages can come in. It consists of one incoming message for logging and one message for simple detection.
 ```
 msg.payload = {
     log : {
@@ -28,8 +29,10 @@ msg.payload = {
 }
 ```
 
-### output
-Returns the contents of the thing the user is interacting with as output.
+<br>
+
+## Output
+Return the contents of the thing the user is interacting with as output.
 There is no return value if the user does not exist or there is no thing to interact with.
 
 ```
