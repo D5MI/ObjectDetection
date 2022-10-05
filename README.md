@@ -37,6 +37,15 @@ npm i @d5mi/node-red-contrib-object-detection
 
 <br>
 
+## Example flow
+
+To use this **[flow](https://github.com/D5MI/node-red-contrib-object-detection/blob/master/examples/example-flow.json)**, you need to install additional nodes.
+
+- [node-red-contrib-samsung-automation-studio-nodes](https://flows.nodered.org/node/node-red-contrib-samsung-automation-studio-nodes)
+- [node-red-contrib-mongodb4](https://flows.nodered.org/node/node-red-contrib-mongodb4)
+
+<br>
+
 ## Additional flow
 
 [Alerts and Chart flow](https://github.com/D5MI/node-red-contrib-object-detection/blob/master/ADDITIONAL_FLOW.md)
