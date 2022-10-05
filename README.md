@@ -48,7 +48,11 @@ To use this **[flow](https://github.com/D5MI/node-red-contrib-object-detection/b
 
 ## Additional flow
 
-[Alerts and Chart flow](https://github.com/D5MI/node-red-contrib-object-detection/blob/master/ADDITIONAL_FLOW.md)
+[Chart flow](https://github.com/D5MI/node-red-contrib-object-detection/blob/master/additional-flow/CHART_FLOW.md)
+
+[Notification flow](https://github.com/D5MI/node-red-contrib-object-detection/blob/master/additional-flow/NOTIFICATION_FLOW.md)
+
+[Dummy data flow](https://github.com/D5MI/node-red-contrib-object-detection/blob/master/additional-flow/DUMMY_DATA_FLOW.md)
 
 <br>
 
