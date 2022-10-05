@@ -1,0 +1,1352 @@
+[
+    {
+        "id": "d53d1787839e0fc7",
+        "type": "websocket in",
+        "z": "5211d78024955f6c",
+        "name": "",
+        "server": "25aa80ccf402eee7",
+        "client": "",
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "bb932b0b0a077927"
+            ]
+        ]
+    },
+    {
+        "id": "bb932b0b0a077927",
+        "type": "json",
+        "z": "5211d78024955f6c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 300,
+        "wires": [
+            [
+                "d2f43c93f9eb8bc9",
+                "2dee3f57682fc7df"
+            ]
+        ]
+    },
+    {
+        "id": "d84ea17dde82f607",
+        "type": "function",
+        "z": "5211d78024955f6c",
+        "name": "function 2",
+        "func": "flow.set('object', msg.payload.object);\nlet temp = msg || false\nif (temp === false) {\n    flow.set('object', 'default')\n    return {\n        msg: {\n            payload: {\n                isnull: true\n            }\n        }\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 240,
+        "wires": [
+            [
+                "7a6821a2e5ce0b76"
+            ]
+        ]
+    },
+    {
+        "id": "51994807aaaf2ba0",
+        "type": "function",
+        "z": "5211d78024955f6c",
+        "name": "function 4",
+        "func": "msg.isLog = msg.payload.isLog\nlet Location = flow.get('object')\nlet Pose = flow.get('pose')\nlet Command = flow.get('command').get(Pose+'&&'+Location)\n\nconsole.log(Pose + '&&' + Location)\nmsg.payload = {\"location\": Location,\"pose\": Pose,\"timestamp\":new Date()};\n\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1380,
+        "y": 180,
+        "wires": [
+            [
+                "b75e281f68d678ce",
+                "dd87958a28935c86"
+            ]
+        ]
+    },
+    {
+        "id": "b75e281f68d678ce",
+        "type": "switch",
+        "z": "5211d78024955f6c",
+        "name": "",
+        "property": "isLog",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1610,
+        "y": 180,
+        "wires": [
+            [
+                "37e7e901e6c95019"
+            ],
+            [
+                "8fe926f6f2d22bb8"
+            ]
+        ]
+    },
+    {
+        "id": "d2f43c93f9eb8bc9",
+        "type": "object-person-determine",
+        "z": "5211d78024955f6c",
+        "x": 850,
+        "y": 240,
+        "wires": [
+            [
+                "d84ea17dde82f607"
+            ]
+        ]
+    },
+    {
+        "id": "a818183133578ccf",
+        "type": "status-device",
+        "z": "5211d78024955f6c",
+        "name": "",
+        "alias": "홈카메라 360",
+        "deviceNodeId": "7deab42c71b310a4",
+        "deviceType": "installed-device",
+        "deviceId": "f5f6e329-1b0a-42dd-93db-d0a2c1c27fed",
+        "componentId": "",
+        "capabilityId": "videoStream_v1",
+        "attributeId": "stream",
+        "rules": [],
+        "logging": true,
+        "loggingEditor": true,
+        "loggingConsole": true,
+        "outputs": 1,
+        "x": 430,
+        "y": 1140,
+        "wires": [
+            [
+                "7e776d5ce9b36bc9"
+            ]
+        ]
+    },
+    {
+        "id": "f4e01395d808a811",
+        "type": "http in",
+        "z": "5211d78024955f6c",
+        "name": "",
+        "url": "object/iot",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 1140,
+        "wires": [
+            [
+                "a818183133578ccf",
+                "b6185cb093126e71",
+                "b8969fb524758ce6",
+                "36c3ad5701b45ffb"
+            ]
+        ]
+    },
+    {
+        "id": "2b36f2c94a9d75c9",
+        "type": "http response",
+        "z": "5211d78024955f6c",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 920,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "696a2c84917928f8",
+        "type": "installed-device",
+        "z": "5211d78024955f6c",
+        "name": "",
+        "alias": "token:e518f42f",
+        "device": "",
+        "devices": [
+            "81148fa3-e3d9-a02d-d560-621dc52e4db9",
+            "7e62b755-d17c-cbe7-fce2-e31f7ab577df",
+            "6def0a57-0525-51b5-6b34-d03e94a33014",
+            "a970e9ee-3170-0ba2-7437-4b9202325805",
+            "f5f6e329-1b0a-42dd-93db-d0a2c1c27fed"
+        ],
+        "profileId": "7deab42c71b310a4",
+        "x": 400,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "3045cdbaa492a24c",
+        "type": "websocket in",
+        "z": "5211d78024955f6c",
+        "name": "등록하기(obj,pose,com)",
+        "server": "dcbeeba4bc086ad2",
+        "client": "",
+        "x": 160,
+        "y": 620,
+        "wires": [
+            [
+                "d0ba68272fa4da81"
+            ]
+        ]
+    },
+    {
+        "id": "d0ba68272fa4da81",
+        "type": "json",
+        "z": "5211d78024955f6c",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 330,
+        "y": 640,
+        "wires": [
+            [
+                "212cca9bdf4ea0cf"
+            ]
+        ]
+    },
+    {
+        "id": "6dec452137cd4165",
+        "type": "debug",
+        "z": "5211d78024955f6c",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1340,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "537a28305c6a5776",
+        "type": "function",
+        "z": "5211d78024955f6c",
+        "name": "function 1",
+        "func": "\nmsg.payload = [{ _id: \"632ab390e636be5492727f00\" }, { $set: { registered: msg.payload } }];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 600,
+        "wires": [
+            [
+                "be8a5a7f06d68c57"
+            ]
+        ]
+    },
+    {
+        "id": "3cf8cef84ce18b80",
+        "type": "debug",
+        "z": "5211d78024955f6c",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1340,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "1b5e14135ba0475e",
+        "type": "debug",
+        "z": "5211d78024955f6c",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "b6185cb093126e71",
+        "type": "function",
+        "z": "5211d78024955f6c",
+        "name": "obj load",
+        "func": "msg.payload = [{ _id: \"632ab390e636be5492727f00\" }];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 920,
+        "wires": [
+            [
+                "cb690027c8dc45fe"
+            ]
+        ]
+    },
+    {
+        "id": "cfdda53ff91325b5",
+        "type": "function",
+        "z": "5211d78024955f6c",
+        "name": "function 3",
+        "func": "console.log(msg.payload);\nflow.set(\"registered\", msg.payload[0][\"registered\"].data);\nconsole.log(flow.get(\"registered\"));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0da473dd23dd341b",
+        "type": "function",
+        "z": "5211d78024955f6c",
+        "name": "function 4",
+        "func": "\nmsg.payload = [{registered: msg.payload}];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 560,
+        "wires": [
+            [
+                "e70f793d40aa01cb"
+            ]
+        ]
+    },
+    {
+        "id": "4d0f72ba1a86da3d",
+        "type": "http response",
+        "z": "5211d78024955f6c",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 560,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "be8a5a7f06d68c57",
+        "type": "mongodb4",
+        "z": "5211d78024955f6c",
+        "clientNode": "f7459df4cf96aa5c",
+        "collection": "hero",
+        "operation": "update",
+        "output": "toArray",
+        "name": "",
+        "x": 1170,
+        "y": 600,
+        "wires": [
+            [
+                "3cf8cef84ce18b80",
+                "eb73870eb84d2f8f"
+            ]
+        ]
+    },
+    {
+        "id": "cb690027c8dc45fe",
+        "type": "mongodb4",
+        "z": "5211d78024955f6c",
+        "clientNode": "f7459df4cf96aa5c",
+        "collection": "hero",
+        "operation": "find",
+        "output": "toArray",
+        "name": "",
+        "x": 590,
+        "y": 900,
+        "wires": [
+            [
+                "1b5e14135ba0475e",
+                "cfdda53ff91325b5"
+            ]
+        ]
+    },
+    {
+        "id": "e70f793d40aa01cb",
+        "type": "mongodb4",
+        "z": "5211d78024955f6c",
+        "clientNode": "f7459df4cf96aa5c",
+        "collection": "hero",
+        "operation": "insert",
+        "output": "toArray",
+        "name": "",
+        "x": 1170,
+        "y": 560,
+        "wires": [
+            [
+                "6dec452137cd4165",
+                "eb73870eb84d2f8f"
+            ]
+        ]
+    },
+    {
+        "id": "085417bb96c74736",
+        "type": "http in",
+        "z": "5211d78024955f6c",
+        "name": "",
+        "url": "/object",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 840,
+        "wires": [
+            [
+                "b6185cb093126e71",
+                "b8969fb524758ce6",
+                "a1ca64b329ce7904",
+                "36c3ad5701b45ffb"
+            ]
+        ]
+    },
+    {
+        "id": "98d7a139cc535f2a",
+        "type": "switch",
+        "z": "5211d78024955f6c",
+        "name": "obj",
+        "property": "registered",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 690,
+        "y": 600,
+        "wires": [
+            [
+                "0da473dd23dd341b"
+            ],
+            [
+                "537a28305c6a5776"
+            ]
+        ]
+    },
+    {
+        "id": "212cca9bdf4ea0cf",
+        "type": "switch",
+        "z": "5211d78024955f6c",
+        "name": "pose-object classification",
+        "property": "payload.dataType",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "object",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "command",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 510,
+        "y": 640,
+        "wires": [
+            [
+                "98d7a139cc535f2a"
+            ],
+            [
+                "a2bf5de3b15e7ae3"
+            ]
+        ]
+    },
+    {
+        "id": "5869362933b172ec",
+        "type": "debug",
+        "z": "5211d78024955f6c",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1320,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "921b92ee3807db01",
+        "type": "function",
+        "z": "5211d78024955f6c",
+        "name": "function 5",
+        "func": "let commandArr = flow.get(\"command\");\ncommandArr.set(msg.payload.name, msg.payload.value);\nmsg.payload = [{ _id: \"633263acfebb1c68217afba6\" }, { $set: { command: commandArr } }];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 740,
+        "wires": [
+            [
+                "59c1e31cc204c86a"
+            ]
+        ]
+    },
+    {
+        "id": "5e4ebe9c0b8be11c",
+        "type": "debug",
+        "z": "5211d78024955f6c",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1320,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "c809dafe99fb385d",
+        "type": "function",
+        "z": "5211d78024955f6c",
+        "name": "function 6",
+        "func": "\nmsg.payload = [{command: [msg.payload] }];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 700,
+        "wires": [
+            [
+                "ec06dbdba3343ce8"
+            ]
+        ]
+    },
+    {
+        "id": "59c1e31cc204c86a",
+        "type": "mongodb4",
+        "z": "5211d78024955f6c",
+        "clientNode": "f7459df4cf96aa5c",
+        "collection": "hero",
+        "operation": "update",
+        "output": "toArray",
+        "name": "",
+        "x": 1170,
+        "y": 760,
+        "wires": [
+            [
+                "5e4ebe9c0b8be11c",
+                "3b1ea15932942ad3"
+            ]
+        ]
+    },
+    {
+        "id": "ec06dbdba3343ce8",
+        "type": "mongodb4",
+        "z": "5211d78024955f6c",
+        "clientNode": "f7459df4cf96aa5c",
+        "collection": "hero",
+        "operation": "insert",
+        "output": "toArray",
+        "name": "",
+        "x": 1170,
+        "y": 680,
+        "wires": [
+            [
+                "5869362933b172ec",
+                "3b1ea15932942ad3"
+            ]
+        ]
+    },
+    {
+        "id": "ba10cb2f1f923f08",
+        "type": "switch",
+        "z": "5211d78024955f6c",
+        "name": "com",
+        "property": "command",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 850,
+        "y": 720,
+        "wires": [
+            [
+                "c809dafe99fb385d"
+            ],
+            [
+                "921b92ee3807db01"
+            ]
+        ]
+    },
+    {
+        "id": "b8969fb524758ce6",
+        "type": "function",
+        "z": "5211d78024955f6c",
+        "name": "com load",
+        "func": "msg.payload = [{ _id: \"633263acfebb1c68217afba6\" }];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 960,
+        "wires": [
+            [
+                "8428dad331385bdd"
+            ]
+        ]
+    },
+    {
+        "id": "8428dad331385bdd",
+        "type": "mongodb4",
+        "z": "5211d78024955f6c",
+        "clientNode": "f7459df4cf96aa5c",
+        "collection": "hero",
+        "operation": "find",
+        "output": "toArray",
+        "name": "",
+        "x": 590,
+        "y": 980,
+        "wires": [
+            [
+                "47c9aaeee76d94d2",
+                "4135046859df4984"
+            ]
+        ]
+    },
+    {
+        "id": "47c9aaeee76d94d2",
+        "type": "debug",
+        "z": "5211d78024955f6c",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "4135046859df4984",
+        "type": "function",
+        "z": "5211d78024955f6c",
+        "name": "function 10",
+        "func": "\n\nlet comData = flow.get(\"command\") || new Map()\n\nfor (let i in msg.payload[0][\"command\"]){\n    if(typeof i === 'object'){\n        let tmp = msg.payload[0][\"command\"][i];\n        let name = tmp.pose + '&&' + tmp.object\n        let value = tmp.value\n        comData.set(name, value)\n    }\n    else{\n        comData.set(i, msg.payload[0][\"command\"][i])\n    }\n}\n\nflow.set(\"command\", comData);\nconsole.log(flow.get(\"command\"));\nmsg.payload = flow.get(\"command\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 980,
+        "wires": [
+            [
+                "3747d4a705e08a8b"
+            ]
+        ]
+    },
+    {
+        "id": "a2bf5de3b15e7ae3",
+        "type": "function",
+        "z": "5211d78024955f6c",
+        "name": "pre-proccessing",
+        "func": "console.log(msg.payload.data);\n\nlet tmp = {};\n\ntmp.name = msg.payload.data.pose + \"&&\" + msg.payload.data.object;\ntmp.value = msg.payload.data.value;\n\nmsg.payload = tmp;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 680,
+        "wires": [
+            [
+                "ba10cb2f1f923f08",
+                "c6a791f7234f09e8"
+            ]
+        ]
+    },
+    {
+        "id": "c6a791f7234f09e8",
+        "type": "debug",
+        "z": "5211d78024955f6c",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "e45268511fab1be9",
+        "type": "debug",
+        "z": "5211d78024955f6c",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1340,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "3171058ab27c8be1",
+        "type": "link in",
+        "z": "5211d78024955f6c",
+        "name": "link in 1",
+        "links": [
+            "eb73870eb84d2f8f"
+        ],
+        "x": 365,
+        "y": 880,
+        "wires": [
+            [
+                "b6185cb093126e71"
+            ]
+        ]
+    },
+    {
+        "id": "eb73870eb84d2f8f",
+        "type": "link out",
+        "z": "5211d78024955f6c",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "3171058ab27c8be1"
+        ],
+        "x": 1315,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "04071b00f492b231",
+        "type": "link in",
+        "z": "5211d78024955f6c",
+        "name": "link in 2",
+        "links": [
+            "3b1ea15932942ad3"
+        ],
+        "x": 365,
+        "y": 920,
+        "wires": [
+            [
+                "b8969fb524758ce6"
+            ]
+        ]
+    },
+    {
+        "id": "3b1ea15932942ad3",
+        "type": "link out",
+        "z": "5211d78024955f6c",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [
+            "04071b00f492b231"
+        ],
+        "x": 1295,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "0c228304892162bb",
+        "type": "inject",
+        "z": "5211d78024955f6c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 980,
+        "wires": [
+            [
+                "b6185cb093126e71",
+                "b8969fb524758ce6",
+                "36c3ad5701b45ffb"
+            ]
+        ]
+    },
+    {
+        "id": "a1ca64b329ce7904",
+        "type": "object-detection",
+        "z": "5211d78024955f6c",
+        "dataSocketUrl": "ws:/j7s005.p.ssafy.io/ws/data",
+        "registerSocketUrl": "ws:/j7s005.p.ssafy.io/ws/register",
+        "objField": "registered",
+        "objFieldType": "flow",
+        "poseField": "registeredPoseNames",
+        "poseFieldType": "flow",
+        "x": 380,
+        "y": 780,
+        "wires": [
+            [
+                "4d0f72ba1a86da3d"
+            ]
+        ]
+    },
+    {
+        "id": "7a6821a2e5ce0b76",
+        "type": "switch",
+        "z": "5211d78024955f6c",
+        "name": "",
+        "property": "payload.isnull",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "else"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1230,
+        "y": 220,
+        "wires": [
+            [
+                "51994807aaaf2ba0"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "36c3ad5701b45ffb",
+        "type": "function",
+        "z": "5211d78024955f6c",
+        "name": "pose load",
+        "func": "msg.payload = [{ _id: \"6332ab70d7ee1c51a5d10cca\" }];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 1080,
+        "wires": [
+            [
+                "ddcfc61f4a7c0439"
+            ]
+        ]
+    },
+    {
+        "id": "ddcfc61f4a7c0439",
+        "type": "mongodb4",
+        "z": "5211d78024955f6c",
+        "clientNode": "f7459df4cf96aa5c",
+        "collection": "hero",
+        "operation": "find",
+        "output": "toArray",
+        "name": "",
+        "x": 610,
+        "y": 1080,
+        "wires": [
+            [
+                "e1b1183931f1fc5f"
+            ]
+        ]
+    },
+    {
+        "id": "e1b1183931f1fc5f",
+        "type": "json",
+        "z": "5211d78024955f6c",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 750,
+        "y": 1080,
+        "wires": [
+            [
+                "d86bd770edeb31f3"
+            ]
+        ]
+    },
+    {
+        "id": "d86bd770edeb31f3",
+        "type": "function",
+        "z": "5211d78024955f6c",
+        "name": "Array Setting",
+        "func": "flow.set(\"registeredPoses\", msg.payload[0].pose || []);\n\nlet poses = flow.get(\"registeredPoses\");\nlet poseNameArr = [];\n\nfor(let i = 0 ; i < poses.length; i++){\n    poseNameArr.push(poses[i].poseName);\n}\n\n\nflow.set(\"registeredPoseNames\", poseNameArr);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.payload = [];",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 1080,
+        "wires": [
+            [
+                "6fe50a318ef57653"
+            ]
+        ]
+    },
+    {
+        "id": "6fe50a318ef57653",
+        "type": "debug",
+        "z": "5211d78024955f6c",
+        "name": "debug 16",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "dd87958a28935c86",
+        "type": "function",
+        "z": "5211d78024955f6c",
+        "name": "function 32",
+        "func": "return flow.get('command');",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1510,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3747d4a705e08a8b",
+        "type": "debug",
+        "z": "5211d78024955f6c",
+        "name": "debug 85",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "2dee3f57682fc7df",
+        "type": "debug",
+        "z": "5211d78024955f6c",
+        "name": "debug 86",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "37e7e901e6c95019",
+        "type": "function",
+        "z": "5211d78024955f6c",
+        "name": "function 33",
+        "func": "msg.payload.command = flow.get('command').get(msg.payload.pose+'&&'+msg.payload.location)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1870,
+        "y": 120,
+        "wires": [
+            [
+                "e85c498f1ef628c9"
+            ]
+        ]
+    },
+    {
+        "id": "e85c498f1ef628c9",
+        "type": "switch",
+        "z": "5211d78024955f6c",
+        "name": "",
+        "property": "payload.command",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "A",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "B",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "C",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 2030,
+        "y": 120,
+        "wires": [
+            [
+                "6f4eb83a1427013e"
+            ],
+            [
+                "8699025953c39102"
+            ],
+            [
+                "3419f333c52b3aa8"
+            ]
+        ]
+    },
+    {
+        "id": "093ae7346f5973b2",
+        "type": "command-device",
+        "z": "5211d78024955f6c",
+        "name": "setColorBlue",
+        "alias": "setColor:#3366ff",
+        "deviceNodeId": "b40555aa14a19b11",
+        "deviceType": "installed-device",
+        "deviceId": "284e18bd-f951-4b46-ad90-3ab225a16a23",
+        "componentId": "",
+        "capabilityId": "colorControl_v1",
+        "attributeId": "setColor",
+        "rules": [
+            {
+                "capaId": "colorControl_v1",
+                "attrId": "setColor",
+                "args": [
+                    {
+                        "name": "color",
+                        "type": "object",
+                        "value": "#3366ff",
+                        "argType": "color",
+                        "propId": "hex",
+                        "propType": "string"
+                    },
+                    {
+                        "name": "color",
+                        "type": "object",
+                        "propId": "hue",
+                        "propType": "number",
+                        "value": 63
+                    },
+                    {
+                        "name": "color",
+                        "type": "object",
+                        "propId": "saturation",
+                        "propType": "number",
+                        "value": 100
+                    }
+                ]
+            }
+        ],
+        "logging": false,
+        "loggingEditor": false,
+        "loggingConsole": false,
+        "outputs": 1,
+        "x": 2430,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8699025953c39102",
+        "type": "command-device",
+        "z": "5211d78024955f6c",
+        "name": "setColorRed",
+        "alias": "setColor:#ff0026",
+        "deviceNodeId": "b40555aa14a19b11",
+        "deviceType": "installed-device",
+        "deviceId": "284e18bd-f951-4b46-ad90-3ab225a16a23",
+        "componentId": "",
+        "capabilityId": "colorControl_v1",
+        "attributeId": "setColor",
+        "rules": [
+            {
+                "capaId": "colorControl_v1",
+                "attrId": "setColor",
+                "args": [
+                    {
+                        "name": "color",
+                        "type": "object",
+                        "value": "#ff0026",
+                        "argType": "color",
+                        "propId": "hex",
+                        "propType": "string"
+                    },
+                    {
+                        "name": "color",
+                        "type": "object",
+                        "propId": "hue",
+                        "propType": "number",
+                        "value": -2
+                    },
+                    {
+                        "name": "color",
+                        "type": "object",
+                        "propId": "saturation",
+                        "propType": "number",
+                        "value": 100
+                    }
+                ]
+            }
+        ],
+        "logging": false,
+        "loggingEditor": false,
+        "loggingConsole": false,
+        "outputs": 1,
+        "x": 2230,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3419f333c52b3aa8",
+        "type": "command-device",
+        "z": "5211d78024955f6c",
+        "name": "bulbOff",
+        "alias": "off",
+        "deviceNodeId": "b40555aa14a19b11",
+        "deviceType": "installed-device",
+        "deviceId": "284e18bd-f951-4b46-ad90-3ab225a16a23",
+        "componentId": "",
+        "capabilityId": "switch_v1",
+        "attributeId": "off",
+        "rules": [
+            {
+                "capaId": "switch_v1",
+                "attrId": "off",
+                "args": []
+            }
+        ],
+        "logging": false,
+        "loggingEditor": false,
+        "loggingConsole": false,
+        "outputs": 1,
+        "x": 2220,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6f4eb83a1427013e",
+        "type": "command-device",
+        "z": "5211d78024955f6c",
+        "name": "bulbOn",
+        "alias": "on",
+        "deviceNodeId": "b40555aa14a19b11",
+        "deviceType": "installed-device",
+        "deviceId": "284e18bd-f951-4b46-ad90-3ab225a16a23",
+        "componentId": "",
+        "capabilityId": "switch_v1",
+        "attributeId": "on",
+        "rules": [
+            {
+                "capaId": "switch_v1",
+                "attrId": "on",
+                "args": []
+            }
+        ],
+        "logging": false,
+        "loggingEditor": false,
+        "loggingConsole": false,
+        "outputs": 1,
+        "x": 2220,
+        "y": 80,
+        "wires": [
+            [
+                "093ae7346f5973b2"
+            ]
+        ]
+    },
+    {
+        "id": "7e776d5ce9b36bc9",
+        "type": "object-detection-iot",
+        "z": "5211d78024955f6c",
+        "dataSocketUrl": "ws:/j7s005.p.ssafy.io/ws/data",
+        "registerSocketUrl": "ws:/j7s005.p.ssafy.io/ws/register",
+        "rtspPort": 1886,
+        "objField": "registered",
+        "objFieldType": "flow",
+        "poseField": "registeredPoseNames",
+        "poseFieldType": "flow",
+        "credentials": {
+            "smartthingsMnid": "",
+            "smartthingsPat": ""
+        },
+        "x": 670,
+        "y": 1140,
+        "wires": [
+            [
+                "2b36f2c94a9d75c9"
+            ]
+        ]
+    },
+    {
+        "id": "8fe926f6f2d22bb8",
+        "type": "function",
+        "z": "5211d78024955f6c",
+        "name": "set payload",
+        "func": "const date = msg.res;\n\nmsg.payload = [{ \"location\": msg.payload.location, \"pose\": msg.payload.pose,\"timestamp\": msg.payload.timestamp }];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1810,
+        "y": 260,
+        "wires": [
+            [
+                "d18ca18f2392a9ed"
+            ]
+        ]
+    },
+    {
+        "id": "d18ca18f2392a9ed",
+        "type": "object-detection-log",
+        "z": "5211d78024955f6c",
+        "logDirectory": "/var/log/nodered/D5MI",
+        "x": 2010,
+        "y": 260,
+        "wires": [
+            [
+                "3ed8e235c2262d58"
+            ]
+        ]
+    },
+    {
+        "id": "3ed8e235c2262d58",
+        "type": "debug",
+        "z": "5211d78024955f6c",
+        "name": "debug 87",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2220,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "25aa80ccf402eee7",
+        "type": "websocket-listener",
+        "path": "/ws/data",
+        "wholemsg": "false"
+    },
+    {
+        "id": "dcbeeba4bc086ad2",
+        "type": "websocket-listener",
+        "path": "/ws/register",
+        "wholemsg": "false"
+    },
+    {
+        "id": "f7459df4cf96aa5c",
+        "type": "mongodb4-client",
+        "name": "",
+        "protocol": "mongodb",
+        "hostname": "J7S005.p.ssafy.io",
+        "port": "",
+        "dbName": "flow_db",
+        "authSource": "",
+        "authMechanism": "DEFAULT",
+        "tls": false,
+        "tlsCAFile": "",
+        "tlsInsecure": false,
+        "uri": "",
+        "advanced": "",
+        "uriTabActive": "tab-uri-simple"
+    }
+]

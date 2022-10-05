@@ -1,15 +1,27 @@
 {
-  "name": "node-red-contrib-object-detection",
+  "name": "@d5mi/node-red-contrib-object-detection",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "Node-RED Nodes for recognizing objects with a camera, determining and recording interactions between users and objects",
+  "homepage": "https://github.com/D5MI/node-red-contrib-object-detection",
   "repository": {
-
+    "type": "git",
+    "url": "https://github.com/D5MI/node-red-contrib-object-detection.git"
   },
-  "node-red":{
+  "bugs": {
+    "url": "https://github.com/D5MI/node-red-contrib-object-detection/issues"
+  },
+  "license": "Apache 2.0",
+  "keywords": [
+    "node-red",
+    "object-detection",
+    "cocossd"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "author": "Team D5MI",
+  "node-red": {
+    "version": ">=1.3.0",
     "nodes" : {
       "object-detection" : "/object_detection/object-detection.js",
       "object-detection-iot" : "/object-detection-iot/object-detection-iot.js",
@@ -17,18 +29,10 @@
       "object-detection-log" : "/object-detection-log/object-detection-log.js"
     }
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "ws": "^8.9.0",
     "cors" : "^2.8.5",
     "express" : "^4.18.1",
-    "node-rtsp-stream" :"^0.0.9", 
-    "mongodb": "1.4.9"
-  },
-  "keywords": [
-    "node-red",
-    "object-detection",
-    "cocossd"
-  ]
+    "node-rtsp-stream" :"^0.0.9"
+  }
 }
